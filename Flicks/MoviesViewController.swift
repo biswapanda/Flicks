@@ -7,29 +7,87 @@
 //
 
 import UIKit
+import AFNetworking
 
-class MoviesViewController: UIViewController {
 
+class MoviesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+
+    @IBOutlet weak var movieTableView: UITableView!
+    
+    var feed: [NSDictionary] = []
+    let posterBaseUrl = "http://image.tmdb.org/t/p/w90"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        movieTableView.dataSource = self
+        movieTableView.delegate = self
+        loadData()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.feed.count
     }
-    */
-
+    
+    func loadData() {
+        let url = URL(string:"https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed")
+        let request = URLRequest(url: url!)
+        let session = URLSession(
+            configuration: URLSessionConfiguration.default,
+            delegate:nil,
+            delegateQueue:OperationQueue.main
+        )
+        
+        let task : URLSessionDataTask = session.dataTask(
+            with: request as URLRequest,
+            completionHandler: { (data, response, error) in
+                if let data = data {
+                    if let responseDictionary = try! JSONSerialization.jsonObject(
+                        with: data, options:[]) as? NSDictionary {
+                        self.feed = responseDictionary["results"] as! [NSDictionary]
+                        self.movieTableView.reloadData()
+                    }
+                }
+        });
+        task.resume()
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath)
+        let bgColorView = UIView()
+        bgColorView.backgroundColor = UIColor.clear
+        cell?.selectedBackgroundView = bgColorView
+    }
+    
+    func tableView(_ tableView: UITableView,
+                   cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = self.movieTableView.dequeueReusableCell(
+            withIdentifier: "movieTableViewCell") as! MovieTableViewCell
+        let index = indexPath.row
+        let movie = self.feed[index]
+        
+        if let description = movie["overview"] as? String {
+            cell.descriptionLabel.text = description
+        } else {
+            cell.descriptionLabel.text = ""
+        }
+        if let originalTitle = movie["original_title"] as? String {
+            cell.titleLabel.text = originalTitle
+        } else {
+            cell.titleLabel.text = ""
+        }
+        if let posterPath = movie["poster_path"] as? String {
+            let posterURL = URL(string: posterBaseUrl + posterPath)!
+            cell.thumbImageView.setImageWith(posterURL)
+        }
+        else {
+            cell.thumbImageView.image = UIImage(named: "moviePoster")
+        }
+        return cell
+    }
+    
 }
