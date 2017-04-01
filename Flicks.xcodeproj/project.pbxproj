@@ -8,21 +8,21 @@
 
 /* Begin PBXBuildFile section */
 		483256A61E8E3B9A004FD687 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483256A51E8E3B9A004FD687 /* AppDelegate.swift */; };
-		483256A81E8E3B9A004FD687 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483256A71E8E3B9A004FD687 /* ViewController.swift */; };
 		483256AB1E8E3B9A004FD687 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 483256A91E8E3B9A004FD687 /* Main.storyboard */; };
 		483256AD1E8E3B9A004FD687 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 483256AC1E8E3B9A004FD687 /* Assets.xcassets */; };
 		483256B01E8E3B9A004FD687 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 483256AE1E8E3B9A004FD687 /* LaunchScreen.storyboard */; };
+		483256BC1E8F8464004FD687 /* MoviesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 483256BB1E8F8464004FD687 /* MoviesViewController.swift */; };
 		C36FED32AC5161598C487407 /* Pods_Flicks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FEEDECF18B2C05104D8EB72 /* Pods_Flicks.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		483256A21E8E3B9A004FD687 /* Flicks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flicks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		483256A51E8E3B9A004FD687 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		483256A71E8E3B9A004FD687 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		483256AA1E8E3B9A004FD687 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		483256AC1E8E3B9A004FD687 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		483256AF1E8E3B9A004FD687 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		483256B11E8E3B9A004FD687 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		483256BB1E8F8464004FD687 /* MoviesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoviesViewController.swift; sourceTree = "<group>"; };
 		5FC46048BD7C138012A3CA2E /* Pods-Flicks.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Flicks.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Flicks/Pods-Flicks.debug.xcconfig"; sourceTree = "<group>"; };
 		5FEEDECF18B2C05104D8EB72 /* Pods_Flicks.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Flicks.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D32ECBF596CDE017C21E9A4 /* Pods-Flicks.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Flicks.release.xcconfig"; path = "Pods/Target Support Files/Pods-Flicks/Pods-Flicks.release.xcconfig"; sourceTree = "<group>"; };
@@ -79,11 +79,11 @@
 			isa = PBXGroup;
 			children = (
 				483256A51E8E3B9A004FD687 /* AppDelegate.swift */,
-				483256A71E8E3B9A004FD687 /* ViewController.swift */,
 				483256A91E8E3B9A004FD687 /* Main.storyboard */,
 				483256AC1E8E3B9A004FD687 /* Assets.xcassets */,
 				483256AE1E8E3B9A004FD687 /* LaunchScreen.storyboard */,
 				483256B11E8E3B9A004FD687 /* Info.plist */,
+				483256BB1E8F8464004FD687 /* MoviesViewController.swift */,
 			);
 			path = Flicks;
 			sourceTree = "<group>";
@@ -211,8 +211,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				483256A81E8E3B9A004FD687 /* ViewController.swift in Sources */,
 				483256A61E8E3B9A004FD687 /* AppDelegate.swift in Sources */,
+				483256BC1E8F8464004FD687 /* MoviesViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -376,6 +376,7 @@
 				483256B61E8E3B9A004FD687 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
