@@ -17,11 +17,17 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     var feed: [NSDictionary] = []
     let posterBaseUrl = "http://image.tmdb.org/t/p/w90"
     
+    typealias CompletionHandler = () -> Void
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(self.refreshControlAction), for: UIControlEvents.valueChanged)
+        movieTableView.insertSubview(refreshControl, at: 0)
+
         movieTableView.dataSource = self
         movieTableView.delegate = self
-        loadData()
+        loadData(nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -31,8 +37,14 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.feed.count
     }
-    
-    func loadData() {
+
+    func refreshControlAction(_ refreshControl: UIRefreshControl) {
+        loadData {
+            refreshControl.endRefreshing()
+        }
+    }
+
+    func loadData(_ completionHandler: CompletionHandler?) {
         let url = URL(string:"https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed")
         let request = URLRequest(url: url!)
         let session = URLSession(
@@ -49,19 +61,22 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
                         with: data, options:[]) as? NSDictionary {
                         self.feed = responseDictionary["results"] as! [NSDictionary]
                         self.movieTableView.reloadData()
+                        if let handler = completionHandler {
+                            handler()
+                        }
                     }
                 }
         });
         task.resume()
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath)
         let bgColorView = UIView()
         bgColorView.backgroundColor = UIColor.clear
         cell?.selectedBackgroundView = bgColorView
     }
-    
+
     func tableView(_ tableView: UITableView,
                    cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.movieTableView.dequeueReusableCell(
@@ -88,11 +103,11 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         }
         return cell
     }
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let row = self.movieTableView.indexPath(for: sender as! UITableViewCell)!.row
         let mdvc = segue.destination as! MovieDetailViewController
         mdvc.movie = self.feed[row]
     }
-    
+
 }
