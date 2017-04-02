@@ -12,7 +12,9 @@ import AFNetworking
 
 class MoviesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
+    @IBOutlet weak var errorView: UIView!
     @IBOutlet weak var movieTableView: UITableView!
+    @IBOutlet var containerView: UIView!
     
     var feed: [NSDictionary] = []
     let posterBaseUrl = "http://image.tmdb.org/t/p/w90"
@@ -56,6 +58,10 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         let task : URLSessionDataTask = session.dataTask(
             with: request as URLRequest,
             completionHandler: { (data, response, error) in
+                if (error != nil) {
+                  self.errorView.isHidden = false
+                  return
+                }
                 if let data = data {
                     if let responseDictionary = try! JSONSerialization.jsonObject(
                         with: data, options:[]) as? NSDictionary {
