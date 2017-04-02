@@ -11,8 +11,10 @@ import UIKit
 class MovieDetailViewController: UIViewController {
 
     @IBOutlet weak var movieBackdropImageView: UIImageView!
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var movieOverviewLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var infoView: UIView!
     @IBOutlet weak var releaseDateLabel: UILabel!
     
     var movie: NSDictionary?
@@ -28,11 +30,13 @@ class MovieDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         if let overview = movie!["overview"] as? String {
             self.movieOverviewLabel.text = overview
         } else {
             self.movieOverviewLabel.text = ""
         }
+        self.movieOverviewLabel.sizeToFit()
         
         if let posterPath = movie!["poster_path"] as? String {
             let posterURL = URL(string: posterBaseUrl + posterPath)!
@@ -43,7 +47,7 @@ class MovieDetailViewController: UIViewController {
         }
         titleLabel.text = movie!["original_title"]  as? String
         releaseDateLabel.text = self.formatReleaseDate(movie!["release_date"]  as! String)
-        
+        scrollView.contentSize = CGSize(width: scrollView.frame.width, height: infoView.frame.origin.y + infoView.frame.height)
     }
     
     override func didReceiveMemoryWarning() {
