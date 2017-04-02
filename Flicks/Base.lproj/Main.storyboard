@@ -12,7 +12,7 @@
         <!--Movies-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="MoviesViewController" customModule="Flicks" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="MoviesViewController" customModule="Flicks" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -93,7 +93,7 @@
         <!--Movie Detail View Controller-->
         <scene sceneID="2CZ-d6-th3">
             <objects>
-                <viewController id="Lbn-7h-fpL" customClass="MovieDetailViewController" customModule="Flicks" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Lbn-7h-fpL" customClass="MovieDetailViewController" customModule="Flicks" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="muX-AR-rLO">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -157,7 +157,7 @@
         <!--Navigation Controller-->
         <scene sceneID="GSG-c8-B6H">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="wGm-DG-nON" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="moviesNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="wGm-DG-nON" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="0Vj-6V-ASz">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>

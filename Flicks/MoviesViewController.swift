@@ -17,6 +17,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     @IBOutlet weak var movieTableView: UITableView!
     @IBOutlet var containerView: UIView!
     
+    var endPoint: String!
     var feed: [NSDictionary] = []
     let posterBaseUrl = "http://image.tmdb.org/t/p/w90"
     
@@ -48,7 +49,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     }
 
     func loadData(_ completionHandler: CompletionHandler?) {
-        let url = URL(string:"https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed")
+        let url = URL(string:"https://api.themoviedb.org/3/movie/\(self.endPoint!)?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed")
         let request = URLRequest(url: url!)
         let session = URLSession(
             configuration: URLSessionConfiguration.default,

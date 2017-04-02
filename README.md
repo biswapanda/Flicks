@@ -16,7 +16,7 @@ The following **required** functionality is completed:
 
 The following **optional** features are implemented:
 
-- [ ] Add a tab bar for **Now Playing** and **Top Rated** movies.
+- [x] Add a tab bar for **Now Playing** and **Top Rated** movies.
 - [ ] Implement segmented control to switch between list view and grid view.
 - [ ] Add a search bar.
 - [ ] All images fade in.
@@ -39,6 +39,10 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 ## Notes
 
 Describe any challenges encountered while building the app.
+
+## Credits for open source icons used in Flicks: 
+ * tickets by Arthur Lacôte from the Noun Project
+ * Star by Icon Island from the Noun Project
 
 ## License
 
