@@ -26,7 +26,6 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -88,6 +87,12 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
             cell.thumbImageView.image = UIImage(named: "moviePoster")
         }
         return cell
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let row = self.movieTableView.indexPath(for: sender as! UITableViewCell)!.row
+        let mdvc = segue.destination as! MovieDetailViewController
+        mdvc.movie = self.feed[row]
     }
     
 }
