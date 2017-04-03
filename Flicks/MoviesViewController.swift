@@ -11,14 +11,17 @@ import AFNetworking
 import MBProgressHUD
 
 
-class MoviesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class MoviesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
 
+    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var errorView: UIView!
     @IBOutlet weak var movieTableView: UITableView!
     @IBOutlet var containerView: UIView!
     
+    var searchActive: Bool = false
     var endPoint: String!
     var feed: [NSDictionary] = []
+    var filteredFeed: [NSDictionary] = []
     let posterBaseUrl = "http://image.tmdb.org/t/p/w90"
     
     typealias CompletionHandler = () -> Void
@@ -31,6 +34,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
 
         movieTableView.dataSource = self
         movieTableView.delegate = self
+        searchBar.delegate = self
         loadData(nil)
     }
 
@@ -39,6 +43,9 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if (searchActive) {
+            return self.filteredFeed.count
+        }
         return self.feed.count
     }
 
@@ -94,7 +101,13 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         let cell = self.movieTableView.dequeueReusableCell(
             withIdentifier: "movieTableViewCell") as! MovieTableViewCell
         let index = indexPath.row
-        let movie = self.feed[index]
+        var movie: NSDictionary!
+        if (searchActive) {
+            movie = self.filteredFeed[index]
+        }
+        else {
+            movie = self.feed[index]
+        }
         
         if let description = movie["overview"] as? String {
             cell.descriptionLabel.text = description
@@ -119,7 +132,40 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let row = self.movieTableView.indexPath(for: sender as! UITableViewCell)!.row
         let mdvc = segue.destination as! MovieDetailViewController
-        mdvc.movie = self.feed[row]
+        if (searchActive) {
+            mdvc.movie = self.filteredFeed[row]
+        }
+        else {
+            mdvc.movie = self.feed[row]
+        }
     }
 
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        filteredFeed = self.feed.filter({ (movie) -> Bool in
+            let tmp = movie["original_title"] as! String
+            return tmp.lowercased().contains(searchText.lowercased())
+        })
+        if(filteredFeed.count == 0) {
+            searchActive = false;
+        } else {
+            searchActive = true;
+        }
+        self.movieTableView.reloadData()
+    }
+
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchActive = false
+    }
+
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchActive = false
+    }
+
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchActive = true
+    }
+
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchActive = false
+    }
 }
