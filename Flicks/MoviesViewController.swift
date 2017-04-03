@@ -49,6 +49,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     }
 
     func loadData(_ completionHandler: CompletionHandler?) {
+        self.errorView.isHidden = true
         let url = URL(string:"https://api.themoviedb.org/3/movie/\(self.endPoint!)?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed")
         let request = URLRequest(url: url!)
         let session = URLSession(
